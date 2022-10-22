@@ -1,6 +1,6 @@
 import cv2
 from constants import mp_holistic
-from visulisation import mediapipe_detection, draw_landmarks
+from visualisation_methods import mediapipe_detection, draw_landmarks
 
 # Select a webcam
 cap = cv2.VideoCapture(0)
