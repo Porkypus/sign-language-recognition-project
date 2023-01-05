@@ -4,6 +4,7 @@ My Part II project for the University of Cambridge Computer Science Tripos
 
 # Initialisation
 
-This current collection of scripts use the WLASL_v0.3 dataset. Simply extract the root folder once downloaded and rename it to "dataset".
+This current collection of scripts uses the LSA64 dataset, linked [here](https://facundoq.github.io/datasets/lsa64/). The current plan is to extract features from the BSL dict dataset, linked [here](https://github.com/gulvarol/bsldict). Further information will be added as progress continues.
 
-The dataset to be used has not been confirmed yet as of now, but will be when found.
+This project is based on the work linked [here](https://www.sicara.fr/blog-technique/sign-language-recognition-using-mediapipe)
+
