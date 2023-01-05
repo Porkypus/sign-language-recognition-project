@@ -1,0 +1,7 @@
+numpy
+mediapipe
+pandas
+dtw-python
+opencv-python 
+tdqm
+fastdtw
