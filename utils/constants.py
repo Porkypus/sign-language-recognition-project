@@ -1,6 +1,8 @@
 # Variables
 
-# This variable determines from which folder of processed videos we should extract features from. Default value should be train_videos
+# This variable determines from which folder of processed videos we should extract features from.
+# Directory should be in the form of "videos/sign_name/video_name.mp4"
+# DATA_PATH = "datasets/bsl_processed_dataset"
 DATA_PATH = "test"
 
 

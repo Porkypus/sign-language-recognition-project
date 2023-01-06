@@ -51,14 +51,15 @@ class SignRecorder(object):
         Updates the distance column of the reference_signs
         and resets recording variables
         """
-        left_hand_list, right_hand_list = [], []
+        pose_list, left_hand_list, right_hand_list = [], [], []
         for results in self.recorded_results:
-            _, left_hand, right_hand = extract_landmarks(results)
+            pose, left_hand, right_hand = extract_landmarks(results)
+            pose_list.append(pose)
             left_hand_list.append(left_hand)
             right_hand_list.append(right_hand)
 
         # Create a SignModel object with the landmarks gathered during recording
-        recorded_sign = SignModel(left_hand_list, right_hand_list)
+        recorded_sign = SignModel(left_hand_list, right_hand_list, pose_list)
 
         # Compute sign similarity with DTW (ascending order)
         self.reference_signs = dtw_distances(recorded_sign, self.reference_signs)
