@@ -28,11 +28,12 @@ def load_reference_signs(videos):
     reference_signs = {"name": [], "sign_model": [], "distance": []}
     for video_name in videos:
         sign_name = video_name.split("-")[0]
-        path = os.path.join(FEATURE_PATH, sign_name, video_name)
+        video = video_name.split(".")[0]
+        path = os.path.join(FEATURE_PATH, sign_name, video)
 
-        left_hand_list = load_array(os.path.join(path, f"lh_{video_name}.pickle"))
-        right_hand_list = load_array(os.path.join(path, f"rh_{video_name}.pickle"))
-        pose_list = load_array(os.path.join(path, f"pose_{video_name}.pickle"))
+        left_hand_list = load_array(os.path.join(path, f"lh_{video}.pickle"))
+        right_hand_list = load_array(os.path.join(path, f"rh_{video}.pickle"))
+        pose_list = load_array(os.path.join(path, f"pose_{video}.pickle"))
 
         reference_signs["name"].append(sign_name)
         reference_signs["sign_model"].append(

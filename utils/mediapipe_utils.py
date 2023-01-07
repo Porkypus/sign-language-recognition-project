@@ -22,6 +22,49 @@ def mediapipe_detection(image, model):
     return image, results
 
 
+def draw_landmarks(image, results):
+    mp_holistic = mp.solutions.holistic  # Holistic model
+    mp_drawing = mp.solutions.drawing_utils  # Drawing utilities
+
+    # Draw left hand connections
+    mp_drawing.draw_landmarks(
+        image,
+        landmark_list=results.left_hand_landmarks,
+        connections=mp_holistic.HAND_CONNECTIONS,
+        landmark_drawing_spec=mp_drawing.DrawingSpec(
+            color=(232, 254, 255), thickness=1, circle_radius=1
+        ),
+        connection_drawing_spec=mp_drawing.DrawingSpec(
+            color=(255, 249, 161), thickness=2, circle_radius=2
+        ),
+    )
+    # Draw right hand connections
+    mp_drawing.draw_landmarks(
+        image,
+        landmark_list=results.right_hand_landmarks,
+        connections=mp_holistic.HAND_CONNECTIONS,
+        landmark_drawing_spec=mp_drawing.DrawingSpec(
+            color=(232, 254, 255), thickness=1, circle_radius=2
+        ),
+        connection_drawing_spec=mp_drawing.DrawingSpec(
+            color=(255, 249, 161), thickness=2, circle_radius=2
+        ),
+    )
+
+    # Draw pose connections
+    mp_drawing.draw_landmarks(
+        image,
+        landmark_list=results.pose_landmarks,
+        connections=mp_holistic.POSE_CONNECTIONS,
+        landmark_drawing_spec=mp_drawing.DrawingSpec(
+            color=(232, 254, 255), thickness=1, circle_radius=4
+        ),
+        connection_drawing_spec=mp_drawing.DrawingSpec(
+            color=(255, 249, 161), thickness=2, circle_radius=2
+        ),
+    )
+
+
 def landmark_to_array(mp_landmark_list):
     """Return a np array of size (nb_keypoints x 3)"""
     keypoints = []
@@ -54,13 +97,14 @@ def extract_landmarks(results):
 def save_landmarks_from_video(video_name):
     landmark_list = {"pose": [], "left_hand": [], "right_hand": []}
     sign_name = video_name.split("-")[0]
+    video = video_name.split(".")[0]
 
     # Create the folder of the sign if it doesn't exists
     path = os.path.join(FEATURE_PATH, sign_name)
     os.makedirs(path, exist_ok=True)
 
     # Create the folder of the video data if it doesn't exists
-    data_path = os.path.join(path, video_name)
+    data_path = os.path.join(path, video)
     if not os.path.exists(data_path):
         os.makedirs(data_path, exist_ok=True)
         # Set the Video stream
@@ -85,15 +129,15 @@ def save_landmarks_from_video(video_name):
 
         # Saving the landmark_list in the correct folder
         save_array(
-            landmark_list["pose"], os.path.join(data_path, f"pose_{video_name}.pickle")
+            landmark_list["pose"], os.path.join(data_path, f"pose_{video}.pickle")
         )
         save_array(
             landmark_list["left_hand"],
-            os.path.join(data_path, f"lh_{video_name}.pickle"),
+            os.path.join(data_path, f"lh_{video}.pickle"),
         )
         save_array(
             landmark_list["right_hand"],
-            os.path.join(data_path, f"rh_{video_name}.pickle"),
+            os.path.join(data_path, f"rh_{video}.pickle"),
         )
 
 

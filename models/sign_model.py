@@ -59,7 +59,7 @@ class SignModel(object):
     ) -> List[List[float]]:
         """
         Params
-            hand_list: List of all landmarks for each frame of a video
+            pose_list: List of all landmarks for each frame of a video
         Return
             Array of shape (n_frame, nb_connections * nb_connections) containing
             the feature_vectors of the hand for each frame
