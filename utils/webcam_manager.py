@@ -1,6 +1,5 @@
 import cv2
-import numpy as np
-import mediapipe as mp
+from utils.mediapipe_utils import draw_landmarks
 
 
 WHITE_COLOR = (245, 242, 226)
@@ -10,20 +9,18 @@ HEIGHT = 600
 
 
 class WebcamManager(object):
-    """Object that displays the Webcam output, draws the landmarks detected and
-    outputs the sign prediction
+    """Object that displays image output, draws landmarks and
+    predicted signs
     """
 
     def __init__(self):
         self.sign_detected = ""
 
-    def update(
-        self, frame: np.ndarray, results, sign_detected: str, is_recording: bool
-    ):
+    def update(self, frame, results, sign_detected, is_recording):
         self.sign_detected = sign_detected
 
         # Draw landmarks
-        self.draw_landmarks(frame, results)
+        draw_landmarks(frame, results)
 
         WIDTH = int(HEIGHT * len(frame[0]) / len(frame))
         # Resize frame
@@ -72,46 +69,3 @@ class WebcamManager(object):
             font_thickness,
         )
         return frame
-
-    @staticmethod
-    def draw_landmarks(image, results):
-        mp_holistic = mp.solutions.holistic  # Holistic model
-        mp_drawing = mp.solutions.drawing_utils  # Drawing utilities
-
-        # Draw left hand connections
-        mp_drawing.draw_landmarks(
-            image,
-            landmark_list=results.left_hand_landmarks,
-            connections=mp_holistic.HAND_CONNECTIONS,
-            landmark_drawing_spec=mp_drawing.DrawingSpec(
-                color=(232, 254, 255), thickness=1, circle_radius=1
-            ),
-            connection_drawing_spec=mp_drawing.DrawingSpec(
-                color=(255, 249, 161), thickness=2, circle_radius=2
-            ),
-        )
-        # Draw right hand connections
-        mp_drawing.draw_landmarks(
-            image,
-            landmark_list=results.right_hand_landmarks,
-            connections=mp_holistic.HAND_CONNECTIONS,
-            landmark_drawing_spec=mp_drawing.DrawingSpec(
-                color=(232, 254, 255), thickness=1, circle_radius=2
-            ),
-            connection_drawing_spec=mp_drawing.DrawingSpec(
-                color=(255, 249, 161), thickness=2, circle_radius=2
-            ),
-        )
-
-        # Draw pose connections
-        mp_drawing.draw_landmarks(
-            image,
-            landmark_list=results.pose_landmarks,
-            connections=mp_holistic.POSE_CONNECTIONS,
-            landmark_drawing_spec=mp_drawing.DrawingSpec(
-                color=(232, 254, 255), thickness=1, circle_radius=4
-            ),
-            connection_drawing_spec=mp_drawing.DrawingSpec(
-                color=(255, 249, 161), thickness=2, circle_radius=2
-            ),
-        )

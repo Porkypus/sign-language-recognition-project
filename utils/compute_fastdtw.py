@@ -1,10 +1,10 @@
-from dtw import dtw
+from fastdtw import fastdtw
 import numpy as np
 
 
-def dtw_distances(recorded_sign, reference_signs):
+def fastdtw_distances(recorded_sign, reference_signs):
     """
-    Use fastdtw to compute similarity between the recorded sign and the reference signs
+    Use dtw-python to compute similarity between the recorded sign and the reference signs
 
     param recorded_sign: SignModel object containing extracted data from the recorded sign
     param reference_signs: pd.DataFrame (name: str, model: SignModel, distance: int)
@@ -19,10 +19,9 @@ def dtw_distances(recorded_sign, reference_signs):
     rec_right_arm = recorded_sign.right_arm_embedding
 
     for _, row in reference_signs.iterrows():
-        # Initialize the row variables
         _, ref_sign_model, _ = row
 
-        # If the reference sign has the same number of hands compute dtw
+        # check if the reference sign has the same number of hands
         if (recorded_sign.has_left_hand == ref_sign_model.has_left_hand) and (
             recorded_sign.has_right_hand == ref_sign_model.has_right_hand
         ):
@@ -32,24 +31,13 @@ def dtw_distances(recorded_sign, reference_signs):
             ref_left_arm = ref_sign_model.left_arm_embedding
             ref_right_arm = ref_sign_model.right_arm_embedding
 
-            # dtw-python transposes the list of feature vectors if the number of feature vectors is 1.
-            # This is inherent to the data collection, determined by the confidence tracking of mediapipe
-
             if recorded_sign.has_left_hand:
-                if len(rec_left_hand) == 1:
-                    rec_left_hand.append(rec_left_hand[0])
-                if len(ref_left_hand) == 1:
-                    ref_left_hand.append(ref_left_hand[0])
-                row["distance"] += dtw(rec_left_hand, ref_left_hand).distance
+                row["distance"] += list(fastdtw(rec_left_hand, ref_left_hand))[0]
             if recorded_sign.has_right_hand:
-                if len(rec_right_hand) == 1:
-                    rec_right_hand.append(rec_right_hand[0])
-                if len(ref_right_hand) == 1:
-                    ref_right_hand.append(ref_right_hand[0])
-                row["distance"] += dtw(rec_right_hand, ref_right_hand).distance
+                row["distance"] += list(fastdtw(rec_right_hand, ref_right_hand))[0]
 
-            row["distance"] += dtw(rec_left_arm, ref_left_arm).distance
-            row["distance"] += dtw(rec_right_arm, ref_right_arm).distance
+            row["distance"] += list(fastdtw(rec_left_arm, ref_left_arm))[0]
+            row["distance"] += list(fastdtw(rec_right_arm, ref_right_arm))[0]
 
         # If not, distance equals infinity
         else:

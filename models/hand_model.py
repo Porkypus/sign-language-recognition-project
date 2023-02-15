@@ -22,7 +22,7 @@ class HandModel(object):
         landmarks = np.array(landmarks).reshape((21, 3))
         self.feature_vector = self._get_feature_vector(landmarks)
 
-    def _get_feature_vector(self, landmarks: np.ndarray) -> List[float]:
+    def _get_feature_vector(self, landmarks):
         """
         Params
             landmarks: numpy array of shape (21, 3)
@@ -43,9 +43,7 @@ class HandModel(object):
                     angles_list.append(0)
         return angles_list
 
-    def _get_connections_from_landmarks(
-        self, landmarks: np.ndarray
-    ) -> List[np.ndarray]:
+    def _get_connections_from_landmarks(self, landmarks):
         """
         Params
             landmarks: numpy array of shape (21, 3)
@@ -60,7 +58,7 @@ class HandModel(object):
         )
 
     @staticmethod
-    def _get_angle_between_vectors(u: np.ndarray, v: np.ndarray) -> float:
+    def _get_angle_between_vectors(u, v):
         """
         Args
             u, v: 3D vectors representing two connections

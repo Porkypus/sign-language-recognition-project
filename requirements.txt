@@ -2,7 +2,7 @@ numpy
 mediapipe
 pandas
 dtw-python
+fastdtw
 opencv-python
 opencv-contrib-python
 tdqm
-fastdtw

@@ -1,15 +1,12 @@
-# Variables
+# Directories should be in the form of "videos/sign_name/video_name.mp4"
 
-# This variable determines from which folder of processed videos we should extract features from.
-# Directory should be in the form of "videos/sign_name/video_name.mp4"
-# DATA_PATH = "datasets/bsl_processed_dataset"
-DATA_PATH = "test"
+FASTDTW = True  # This variable determines whether to use dtw or fastdtw for calculating the distance between two signs.
+DATA_PATH = "test_videos"  # This variable determines from which folder of processed videos we should extract features from.
+TEST_PATH = "train_videos"  # This variable determines where test videos are saved.
+FEATURE_PATH = "data"  # This variable determines where features are saved.
+BATCH_SIZE = 1  # This variable determines the batch size for predicting a sign.
 
 
-# Constants
-
-# This variable determines where features are saved.
-FEATURE_PATH = "data"
 # This variable is for data pre-processing of the LSA64 dataset.
 mappings = {
     "001": "Opaque",
