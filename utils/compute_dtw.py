@@ -34,7 +34,6 @@ def dtw_distances(recorded_sign, reference_signs):
 
             # dtw-python transposes the list of feature vectors if the number of feature vectors is 1.
             # This is inherent to the data collection, determined by the confidence tracking of mediapipe
-
             if recorded_sign.has_left_hand:
                 if len(rec_left_hand) == 1:
                     rec_left_hand.append(rec_left_hand[0])

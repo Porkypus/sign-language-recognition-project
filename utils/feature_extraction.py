@@ -54,41 +54,6 @@ def load_reference_signs():
     return reference_signs
 
 
-# def load_reference_signs(videos):
-#     reference_signs = {"name": [], "sign_model": [], "distance": []}
-#     for video_name in videos:
-#         sign_name = video_name.split("-")[0]
-#         video = video_name.split(".")[0]
-#         path = os.path.join(FEATURE_PATH, sign_name, video)
-#         path_f = os.path.join(FEATURE_PATH, sign_name, f"{video}-flipped")
-
-#         left_hand_list = load_array(os.path.join(path, f"lh_{video}.pickle"))
-#         right_hand_list = load_array(os.path.join(path, f"rh_{video}.pickle"))
-#         pose_list = load_array(os.path.join(path, f"pose_{video}.pickle"))
-
-#         left_hand_list_f = load_array(os.path.join(path_f, f"lh_{video}f.pickle"))
-#         right_hand_list_f = load_array(os.path.join(path_f, f"rh_{video}f.pickle"))
-#         pose_list_f = load_array(os.path.join(path_f, f"pose_{video}f.pickle"))
-
-#         reference_signs["name"].append(sign_name)
-#         reference_signs["sign_model"].append(
-#             SignModel(left_hand_list, right_hand_list, pose_list)
-#         )
-#         reference_signs["distance"].append(0)
-
-#         reference_signs["name"].append(sign_name)
-#         reference_signs["sign_model"].append(
-#             SignModel(left_hand_list_f, right_hand_list_f, pose_list_f)
-#         )
-#         reference_signs["distance"].append(0)
-
-#     reference_signs = pd.DataFrame(reference_signs, dtype=object)
-#     print(
-#         f'Dictionary count: {reference_signs[["name", "sign_model"]].groupby(["name"]).count()}'
-#     )
-#     return reference_signs
-
-
 def save_array(arr, path):
     file = open(path, "wb")
     pkl.dump(arr, file)
