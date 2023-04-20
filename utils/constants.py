@@ -1,6 +1,6 @@
 # Directories should be in the form of "videos/sign_name/video_name.mp4"
 
-FASTDTW = False  # This variable determines whether to use dtw or fastdtw for calculating the distance between two signs.
+FASTDTW = True  # This variable determines whether to use dtw or fastdtw for calculating the distance between two signs.
 DATA_PATH = "test_videos"  # This variable determines from which folder of processed videos we should extract features from.
 TEST_PATH = "train_videos"  # This variable determines where test videos are saved.
 FEATURE_PATH = "data"  # This variable determines where features are saved.

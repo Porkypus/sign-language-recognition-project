@@ -27,6 +27,8 @@ def extract_features():
         for i in tqdm(range(n)):
             save_landmarks_from_video(videos[i])
 
+    print("\nDone extracting landmarks\n")
+
 
 def load_reference_signs():
     """
@@ -35,7 +37,6 @@ def load_reference_signs():
     reference_signs = {"name": [], "sign_model": [], "distance": []}
     for sign in os.listdir(FEATURE_PATH):
         for video in os.listdir(os.path.join(FEATURE_PATH, sign)):
-
             path = os.path.join(FEATURE_PATH, sign, video)
 
             left_hand_list = load_array(os.path.join(path, f"lh_{video}.pickle"))
