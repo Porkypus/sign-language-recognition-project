@@ -21,10 +21,9 @@ webcam_manager = WebcamManager()
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 # Set up the Mediapipe environment
 with mediapipe.solutions.holistic.Holistic(
-    min_detection_confidence=0.5, min_tracking_confidence=0.5
+    min_detection_confidence=0.7, min_tracking_confidence=0.7
 ) as holistic:
     while cap.isOpened():
-
         # Read feed
         ret, frame = cap.read()
 

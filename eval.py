@@ -25,7 +25,7 @@ for sign in tqdm(os.listdir(TEST_PATH), desc="Evaluating Signs", position=2):
         total += 1
         cap = cv2.VideoCapture(os.path.join(TEST_PATH, sign, video))
         with mediapipe.solutions.holistic.Holistic(
-            min_detection_confidence=0.5, min_tracking_confidence=0.5
+            min_detection_confidence=0.7, min_tracking_confidence=0.7
         ) as holistic:
             count = 0
             while cap.isOpened():

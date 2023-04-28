@@ -125,7 +125,7 @@ def save_landmarks_from_video(video_name):
         # Set the Video stream
         cap = cv2.VideoCapture(os.path.join(DATA_PATH, sign_name, video_name))
         with mp.solutions.holistic.Holistic(
-            min_detection_confidence=0.5, min_tracking_confidence=0.5
+            min_detection_confidence=0.4, min_tracking_confidence=0.4
         ) as holistic:
             while cap.isOpened():
                 ret, frame = cap.read()

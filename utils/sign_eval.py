@@ -4,7 +4,7 @@ from utils.compute_dtw import dtw_distances
 from utils.compute_fastdtw import fastdtw_distances
 from utils.feature_extraction import extract_landmarks
 from models.sign_model import SignModel
-from utils.constants import BATCH_SIZE, FASTDTW
+from utils.constants import BATCH_SIZE, THRESHOLD, FASTDTW
 
 
 class SignEval(object):
@@ -89,7 +89,7 @@ class SignEval(object):
         self.eval_results = []
         self.reference_signs["distance"].values[:] = 0
 
-    def get_sign_predicted(self, batch_size=BATCH_SIZE, threshold=0.4):
+    def get_sign_predicted(self, batch_size=BATCH_SIZE, threshold=THRESHOLD):
         """
         Outputs the sign that appears the most in the list of closest reference signs, only if its proportion within the batch is greater than the threshold
 

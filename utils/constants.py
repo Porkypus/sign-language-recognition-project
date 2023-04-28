@@ -1,10 +1,12 @@
 # Directories should be in the form of "videos/sign_name/video_name.mp4"
 
-FASTDTW = True  # This variable determines whether to use dtw or fastdtw for calculating the distance between two signs.
-DATA_PATH = "test_videos"  # This variable determines from which folder of processed videos we should extract features from.
-TEST_PATH = "train_videos"  # This variable determines where test videos are saved.
-FEATURE_PATH = "data"  # This variable determines where features are saved.
+FASTDTW = True  # This variable determines whether to use dtw or fastdtw for calculating the distance between two signs. Set to True to use fastdtw.
 BATCH_SIZE = 1  # This variable determines the batch size for predicting a sign.
+THRESHOLD = 0.4  # This variable determines the threshold for predicting a sign. If the proportion of the most represented sign in the batch is greater than threshold, we output the sign_name.
+
+DATA_PATH = "train_videos"  # This variable determines from which folder of processed videos we should extract features from. (default: "train_videos")
+TEST_PATH = "test_videos"  # This variable determines where test videos are saved. (default: "test_videos")
+FEATURE_PATH = "data"  # This variable determines where features are saved.
 
 
 # This variable is for data pre-processing of the LSA64 dataset.
