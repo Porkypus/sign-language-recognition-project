@@ -1,3 +1,4 @@
+import time
 from collections import Counter
 
 from utils.compute_dtw import dtw_distances
@@ -56,8 +57,10 @@ class SignEval(object):
 
         return: Return the word predicted
         """
+        start = time.time()
         self.compute_distances()
-        return self.get_sign_predicted()
+        end = time.time()
+        return self.get_sign_predicted(), end - start
 
     def compute_distances(self):
         """

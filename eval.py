@@ -1,6 +1,7 @@
 import cv2
 import mediapipe
 import os
+import statistics
 from tqdm import tqdm
 from utils.feature_extraction import extract_features, load_reference_signs
 from utils.mediapipe_utils import mediapipe_detection
@@ -11,6 +12,7 @@ from utils.constants import TEST_PATH
 total = 0
 correct = 0
 sign_correct = {}
+total_processing_time = []
 
 videos = extract_features()
 
@@ -44,8 +46,9 @@ for sign in tqdm(os.listdir(TEST_PATH), desc="Evaluating Signs", position=2):
                 if cv2.waitKey(1) & 0xFF == ord("q"):
                     break
 
-        sign_detected = sign_eval.process_eval_results()
+        sign_detected, elapsed_time = sign_eval.process_eval_results()
         sign_eval.reset()
+        total_processing_time.append(elapsed_time)
         if sign_detected == sign:
             sign_correct[sign] = sign_correct.get(sign, 0) + 1
             correct += 1
@@ -54,4 +57,8 @@ for sign in tqdm(os.listdir(TEST_PATH), desc="Evaluating Signs", position=2):
         cv2.destroyAllWindows()
 
 print(f"Accuracy: {correct/total}")
+print(f"Average Processing Time: {statistics.mean(total_processing_time)}")
+print(
+    f"Standard Deviation of Processing Time: {statistics.stdev(total_processing_time)}"
+)
 print(sign_correct)

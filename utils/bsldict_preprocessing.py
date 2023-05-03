@@ -4,7 +4,7 @@ from constants import mappings
 
 os.makedirs(os.path.join("datasets", "bsl_processed_dataset"), exist_ok=True)
 
-n = 10
+n = 12
 count = {}
 downloaded = {}
 
