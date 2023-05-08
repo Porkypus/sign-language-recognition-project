@@ -57,10 +57,10 @@ class SignEval(object):
 
         return: Return the word predicted
         """
-        start = time.time()
-        self.compute_distances()
-        end = time.time()
-        return self.get_sign_predicted(), end - start
+
+        elapsed_time = self.compute_distances()
+
+        return self.get_sign_predicted(), elapsed_time
 
     def compute_distances(self):
         """
@@ -77,6 +77,7 @@ class SignEval(object):
         # Create a SignModel object with the extracted landmarks
         recorded_sign = SignModel(left_hand_list, right_hand_list, pose_list)
 
+        start = time.time()
         # Compute sign similarity with dtw-python
         if FASTDTW:
             self.reference_signs = fastdtw_distances(
@@ -84,6 +85,8 @@ class SignEval(object):
             )
         else:
             self.reference_signs = dtw_distances(recorded_sign, self.reference_signs)
+        end = time.time()
+        return end - start
 
     def reset(self):
         """

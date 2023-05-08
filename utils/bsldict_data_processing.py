@@ -5,13 +5,15 @@ from constants import mappings
 os.makedirs("train_videos", exist_ok=True)
 os.makedirs("test_videos", exist_ok=True)
 
+# Number of training videos per word
+n = 7
 
 path = os.path.join("datasets", "bsl_processed_dataset")
 for sign in os.listdir(path):
     count = 0
     for video in os.listdir(os.path.join(path, sign)):
         word = video.split("-")[0]
-        if count < 7:
+        if count < n:
             os.makedirs(os.path.join("train_videos", word), exist_ok=True)
             shutil.copy(
                 os.path.join(path, sign, video),
