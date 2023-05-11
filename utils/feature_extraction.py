@@ -23,9 +23,9 @@ def extract_features():
     # Create the dataset from the reference videos
     n = len(videos)
     if n > 0:
-        print(f"\nExtracting landmarks from new videos: {n} videos detected\n")
+        print(f"\nExtracting keypoints: {n} videos detected\n")
         for i in tqdm(range(n)):
-            save_landmarks_from_video(videos[i])
+            store_keypoints(videos[i])
 
     print("\nDone extracting landmarks\n")
 
@@ -100,7 +100,7 @@ def extract_landmarks(results):
     return pose, left_hand, right_hand
 
 
-def save_landmarks_from_video(video_name):
+def store_keypoints(video_name):
     """
     Extract the landmarks from a video and save them in a pickle file
     """

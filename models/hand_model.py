@@ -29,20 +29,19 @@ class HandModel(object):
             List of length nb_connections * nb_connections containing
             all the angles between the connections
         """
-        connections = self._get_connections_from_landmarks(landmarks)
+        connections = self._get_connections(landmarks)
 
-        angles_list = []
+        angles = []
         for connection_from in connections:
             for connection_to in connections:
-                angle = self._get_angle_between_vectors(connection_from, connection_to)
-                # If the angle is not NaN we store it else we store 0
+                angle = self._get_angle(connection_from, connection_to)
                 if angle == angle:
-                    angles_list.append(angle)
+                    angles.append(angle)
                 else:
-                    angles_list.append(0)
-        return angles_list
+                    angles.append(0)
+        return angles
 
-    def _get_connections_from_landmarks(self, landmarks):
+    def _get_connections(self, landmarks):
         """
         Params
             landmarks: numpy array of shape (21, 3)
@@ -57,7 +56,7 @@ class HandModel(object):
         )
 
     @staticmethod
-    def _get_angle_between_vectors(u, v):
+    def _get_angle(u, v):
         """
         Args
             u, v: 3D vectors representing two connections

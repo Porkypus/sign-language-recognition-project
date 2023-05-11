@@ -60,7 +60,7 @@ class SignEval(object):
 
         elapsed_time = self.compute_distances()
 
-        return self.get_sign_predicted(), elapsed_time
+        return self.get_prediction(), elapsed_time
 
     def compute_distances(self):
         """
@@ -95,7 +95,7 @@ class SignEval(object):
         self.eval_results = []
         self.reference_signs["distance"].values[:] = 0
 
-    def get_sign_predicted(self, batch_size=BATCH_SIZE, threshold=THRESHOLD):
+    def get_prediction(self, batch_size=BATCH_SIZE, threshold=THRESHOLD):
         """
         Outputs the sign that appears the most in the list of closest reference signs, only if its proportion within the batch is greater than the threshold
 
